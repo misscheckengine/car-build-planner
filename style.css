@@ -83,6 +83,56 @@ box-shadow: 0 0 10px rgba(0, 212, 255, 0.45);
 width: 100%;
 margin-top: 28px;
 }
+.hero {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+.subtitle {
+font-size: 1.4rem;
+color: #d8d8d8;
+margin-bottom: 30px;
+}
+
+.hidden {
+display: none;
+}
+
+.planner {
+min-height: 100vh;
+padding: 60px 20px;
+background: rgba(0,0,0,.9);
+}
+
+.planner-card {
+max-width: 500px;
+margin: auto;
+padding: 30px;
+border-radius: 15px;
+background: rgba(30,30,30,.95);
+border: 1px solid #00d4ff;
+}
+
+.planner-card label {
+display: block;
+margin-top: 15px;
+text-align: left;
+}
+
+.planner-card input {
+width: 100%;
+padding: 12px;
+margin-top: 6px;
+margin-bottom: 18px;
+border-radius: 8px;
+border: none;
+background: #222;
+color: white;
+box-sizing: border-box;
+}
 
 
 
