@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
 <body>
 
 <section class="hero" id="heroSection">
+
     <h1>🏁 Car Build Planner</h1>
 
     <p class="subtitle">
@@ -19,6 +21,7 @@
     <button id="startButton">
         Start Your Build
     </button>
+
 </section>
 
 <section class="planner hidden" id="plannerSection">
@@ -28,20 +31,65 @@
     <div class="planner-card">
 
         <label for="carYear">Year</label>
-        <input id="carYear" type="number" placeholder="1994">
+        <input id="carYear" type="number" placeholder="1995">
 
         <label for="carMake">Make</label>
         <input id="carMake" type="text" placeholder="Honda">
 
         <label for="carModel">Model</label>
-        <input id="carModel" type="text" placeholder="Civic Coupe">
+        <input id="carModel" type="text" placeholder="Civic">
 
         <label for="buildBudget">Build Budget</label>
-        <input id="buildBudget" type="number" placeholder="5000">
+        <input id="buildBudget" type="number" placeholder="10000">
 
         <button id="saveCarButton">
             Save My Car
         </button>
+
+    </div>
+
+    <div class="build-dashboard hidden" id="buildDashboard">
+
+        <h2 id="carTitle">My Build</h2>
+
+        <p>
+            Starting Budget:
+            <strong id="startingBudget">$0</strong>
+        </p>
+
+        <p>
+            Money Spent:
+            <strong id="moneySpent">$0</strong>
+        </p>
+
+        <p class="remaining">
+            Budget Remaining:
+            <strong id="remainingBudget">$0</strong>
+        </p>
+
+        <div class="parts-card">
+
+            <h3>Add a Part</h3>
+
+            <label for="partName">Part Name</label>
+            <input id="partName" type="text" placeholder="Coilovers">
+
+            <label for="partPrice">Part Price</label>
+            <input id="partPrice" type="number" placeholder="800">
+
+            <button id="addPartButton">
+                Add Part
+            </button>
+
+        </div>
+
+        <div class="parts-list-card">
+
+            <h3>Build Parts</h3>
+
+            <ul id="partsList"></ul>
+
+        </div>
 
     </div>
 
