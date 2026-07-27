@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Car Build Planner</title>
-
-<link rel="stylesheet" href="style.css">
-</head>
-
 <body>
 
-<div class="hero">
-
+<section class="hero" id="heroSection">
 <h1>🏁 Car Build Planner</h1>
 
 <p class="subtitle">
@@ -21,9 +10,35 @@ Build. Budget. Boost.
 <button id="startButton">
 Start Your Build
 </button>
+</section>
+
+<section class="planner hidden" id="plannerSection">
+
+<h2>Start Your Build</h2>
+
+<div class="planner-card">
+
+<label for="carYear">Year</label>
+<input id="carYear" type="number" placeholder="1994">
+
+<label for="carMake">Make</label>
+<input id="carMake" type="text" placeholder="Honda">
+
+<label for="carModel">Model</label>
+<input id="carModel" type="text" placeholder="Civic Coupe">
+
+<label for="buildBudget">Build Budget</label>
+<input id="buildBudget" type="number" placeholder="5000">
+
+<button id="saveCarButton">
+Save My Car
+</button>
 
 </div>
+
+</section>
+
 <script src="script.js"></script>
+
 </body>
-</html>
 
