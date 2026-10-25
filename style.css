@@ -241,7 +241,9 @@ font-size: 0.7rem;
     font-family: "Segoe Script", "Brush Script MT", cursive;
     color: #45e6d2;
     text-shadow: 0 0 14px rgba(69, 230, 210, 0.45);
-    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-weight: normal;
+}
 }
 
 .memorial-subtitle {
@@ -261,7 +263,9 @@ font-size: 0.7rem;
 
 .memorial-content h3 {
     color: #45e6d2;
-  font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.8rem;
+    font-weight: normal;
 }
 
 .memorial-quote {
