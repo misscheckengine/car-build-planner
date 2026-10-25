@@ -250,6 +250,7 @@ font-size: 0.7rem;
     color: #d4e8e6;
 }
 
+
 .memorial-content {
     max-width: 760px;
     margin: 0 auto;
@@ -258,8 +259,19 @@ font-size: 0.7rem;
     border-radius: 16px;
     background: rgba(16, 25, 25, 0.9);
     box-shadow: 0 0 24px rgba(69, 230, 210, 0.12);
-    line-height: 1.8;
+    line-height: 2;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.2rem;
+    color: #39ff88;
+    text-shadow: 0 0 7px rgba(57, 255, 136, 0.55);
 }
+
+.memorial-content p {
+    color: #39ff88;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    text-shadow: 0 0 7px rgba(57, 255, 136, 0.55);
+}
+
 
 .memorial-content h3 {
     color: #45e6d2;
