@@ -51,7 +51,20 @@
     <div class="build-dashboard hidden" id="buildDashboard">
 
         <h2 id="carTitle">My Build</h2>
+        <div class="dashboard-actions">
+            <button id="compareBuildsButton" type="button">
+                Compare Builds
+            </button>
 
+            <button id="exportBuildButton" type="button">
+                Export Build Sheet
+            </button>
+        </div>
+
+        <div id="buildComparison" class="comparison-card hidden">
+            <h3>Compare Your Builds</h3>
+            <div id="comparisonResults"></div>
+        </div>
         <p>
             Starting Budget:
             <strong id="startingBudget">$0</strong>
