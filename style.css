@@ -273,4 +273,39 @@ font-size: 0.7rem;
     font-size: 1.1rem;
 }
 
+/* Dariyon's Memorial Photo Gallery */
+.memorial-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+.memorial-gallery figure {
+    margin: 0;
+    padding: 12px;
+    background: #101919;
+    border: 1px solid rgba(69, 230, 210, 0.55);
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(69, 230, 210, 0.12);
+}
+
+.memorial-gallery img {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 9px;
+    border: 1px solid rgba(69, 230, 210, 0.25);
+}
+
+.memorial-gallery figcaption {
+    padding: 14px 5px 5px;
+    color: #45e6d2;
+    font-family: "Segoe Script", "Brush Script MT", cursive;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
 
