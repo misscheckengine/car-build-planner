@@ -216,4 +216,61 @@ color: white;
 font-size: 0.7rem;
 }
 
+/* Dariyon's Memorial */
+.memorial {
+    padding: 70px 20px;
+    margin: 40px auto 0;
+    background: linear-gradient(180deg, rgba(5, 12, 12, 0.97), rgba(0, 0, 0, 0.96));
+    border-top: 2px solid #24d6c5;
+    color: #f5f5f5;
+}
+
+.memorial-header {
+    max-width: 850px;
+    margin: 0 auto 35px;
+}
+
+.memorial-label {
+    font-family: "Orbitron", sans-serif;
+    letter-spacing: 4px;
+    font-size: 0.85rem;
+    color: #45e6d2;
+}
+
+.memorial-header h2 {
+    font-family: "Orbitron", sans-serif;
+    color: #45e6d2;
+    text-shadow: 0 0 14px rgba(69, 230, 210, 0.45);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+.memorial-subtitle {
+    color: #d4e8e6;
+}
+
+.memorial-content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid rgba(69, 230, 210, 0.55);
+    border-radius: 16px;
+    background: rgba(16, 25, 25, 0.9);
+    box-shadow: 0 0 24px rgba(69, 230, 210, 0.12);
+    line-height: 1.8;
+}
+
+.memorial-content h3 {
+    color: #45e6d2;
+    font-family: "Orbitron", sans-serif;
+}
+
+.memorial-quote {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(69, 230, 210, 0.3);
+    color: #45e6d2;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
 
