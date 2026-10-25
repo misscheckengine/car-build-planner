@@ -267,9 +267,9 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 }
 
 .memorial-content p {
-    color: #39ff88;
-    font-family: "Segoe Script", "Brush Script MT", cursive;
-    text-shadow: 0 0 7px rgba(57, 255, 136, 0.55);
+   color: #45e6d2;
+    font-family: "Segoe Script", "Brush Script MT", cursive;  
+text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 }
 
 
