@@ -523,17 +523,96 @@ function restoreBuilds() {
 restoreBuilds();
 
 // ===== VIRTUAL GARAGE PHOTO UPLOAD =====
-const garagePhotoInput =
-    document.getElementById("garagePhotoInput");
 
-const garageCarImage =
-    document.getElementById("garageCarImage");
+ // ===== PERSISTENT VIRTUAL GARAGE PHOTO =====
+
+const garagePhotoInput = document.getElementById("garagePhotoInput");
+const garageCarImage = document.getElementById("garageCarImage");
+
+let garagePhotoUrl = null;
+
+function openGaragePhotoDB() {
+    return new Promise((resolve, reject) => {
+        if (!("indexedDB" in window)) {
+            reject(new Error("Browser storage is unavailable."));
+            return;
+        }
+
+        const request = indexedDB.open("CarBuildPlannerGarage", 1);
+
+        request.onupgradeneeded = () => {
+            const db = request.result;
+
+            if (!db.objectStoreNames.contains("photos")) {
+                db.createObjectStore("photos");
+            }
+        };
+
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function saveGaragePhoto(file) {
+    const db = await openGaragePhotoDB();
+
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction("photos", "readwrite");
+
+        transaction.objectStore("photos").put(file, "myCarPhoto");
+
+        transaction.oncomplete = () => {
+            db.close();
+            resolve();
+        };
+
+        transaction.onerror = () => {
+            const error = transaction.error;
+            db.close();
+            reject(error);
+        };
+
+        transaction.onabort = () => {
+            const error = transaction.error;
+            db.close();
+            reject(error || new Error("Photo saving was cancelled."));
+        };
+    });
+}
+
+async function loadGaragePhoto() {
+    if (!garageCarImage) return;
+
+    try {
+        const db = await openGaragePhotoDB();
+
+        const photo = await new Promise((resolve, reject) => {
+            const transaction = db.transaction("photos", "readonly");
+            const request = transaction.objectStore("photos").get("myCarPhoto");
+
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+
+        db.close();
+
+        if (photo instanceof Blob) {
+            if (garagePhotoUrl) {
+                URL.revokeObjectURL(garagePhotoUrl);
+            }
+
+            garagePhotoUrl = URL.createObjectURL(photo);
+            garageCarImage.src = garagePhotoUrl;
+            garageCarImage.alt = "Your uploaded car photo";
+        }
+    } catch (error) {
+        console.error("Could not restore the garage photo:", error);
+    }
+}
 
 if (garagePhotoInput && garageCarImage) {
-    garagePhotoInput.addEventListener("change", () => {
-        const file =
-            garagePhotoInput.files &&
-            garagePhotoInput.files[0];
+    garagePhotoInput.addEventListener("change", async () => {
+        const file = garagePhotoInput.files?.[0];
 
         if (!file) return;
 
@@ -543,21 +622,24 @@ if (garagePhotoInput && garageCarImage) {
             return;
         }
 
-        const reader = new FileReader();
+        try {
+            await saveGaragePhoto(file);
 
-        reader.onload = () => {
-            if (typeof reader.result === "string") {
-                garageCarImage.src = reader.result;
-                garageCarImage.alt = "Your uploaded car photo";
+            if (garagePhotoUrl) {
+                URL.revokeObjectURL(garagePhotoUrl);
             }
-        };
 
-        reader.onerror = () => {
+            garagePhotoUrl = URL.createObjectURL(file);
+            garageCarImage.src = garagePhotoUrl;
+            garageCarImage.alt = "Your uploaded car photo";
+        } catch (error) {
+            console.error("Could not save the garage photo:", error);
             alert(
-                "That photo couldn't be opened. Please try another image."
+                "The photo could not be saved. Try a smaller image or another browser."
             );
-        };
-
-        reader.readAsDataURL(file);
+        }
     });
+
+    loadGaragePhoto();
 }
+
