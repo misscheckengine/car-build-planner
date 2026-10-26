@@ -5,15 +5,15 @@ margin: 0;
 font-family: Arial, sans-serif;
 
 background-image:
-linear-gradient(rgba(8, 4, 12, 0.30), rgba(8, 4, 12, 0.52)),
+linear-gradient(rgba(8, 4, 12, 0.38), rgba(8, 4, 12, 0.60)),
 url("https://www.workwheelsusa.com/wp-content/uploads/2025/01/KF_500.jpg"),
 url("https://buypartsfromjapan.com/cdn/shop/files/B92CBCEF-CF97-487E-9955-E8D492F35B51_1080x.jpg?v=1736538285"),
 url("https://turbodepotperformance.com/cdn/shop/files/Remove_background_project_8_1350x1351.png?v=1730250076"),
 url("https://jhpusa.com/cdn/shop/files/SpeedFactory-HP-Side-Inlet-Outlet-Universal-Front-Mount-Intercooler-3_-Inlet-3_-Outlet-_850HP-1000HP_-1.jpg?v=1691783839");
 
 background-color: #08070b;
-background-size: cover, 48% auto, 54% auto, 46% auto, 52% auto;
-background-position: center, center 18%, left -5% center, center center, right -4% center;
+background-size: cover, 54% auto, 50% auto, 43% auto, 52% auto;
+background-position: center, center 20%, left -4% center, center center, right -4% center;
 background-repeat: no-repeat;
 background-attachment: fixed;
 
@@ -975,24 +975,23 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 }
 
 
-/* Performance-brand collage accents. Keep the parts visible while protecting text contrast. */
+
+
+/* Repeating low-contrast motorsport marque wall behind the photo collage. */
 body::before {
-content: "WORK   •   VOLK RACING   •   BC RACING   •   GARRETT   •   MISHIMOTO   •   MUGEN   •   HKS   •   SKUNK2   •   BREMBO   •   KW SUSPENSIONS   •   TOMEI";
+content: "WORK WHEELS   •   VOLK RACING / RAYS   •   BC RACING   •   GARRETT   •   MISHIMOTO   •   MUGEN   •   HKS   •   SKUNK2   •   BREMBO   •   KW SUSPENSIONS   •   TOMEI";
 position: fixed;
 inset: 0;
 z-index: 0;
 pointer-events: none;
-display: block;
-padding: 18px 2vw;
 box-sizing: border-box;
-color: rgba(255, 90, 190, 0.15);
-font: 700 clamp(12px, 1.4vw, 22px)/1.9 'Orbitron', Arial, sans-serif;
-letter-spacing: .13em;
-text-align: left;
-word-spacing: 1.1em;
-text-shadow: 0 0 16px rgba(255, 30, 160, .12);
+padding: 22px 2vw;
+color: rgba(255, 92, 174, .22);
+font: 700 clamp(11px, 1.35vw, 20px)/2.6 'Orbitron', Arial, sans-serif;
+letter-spacing: .12em;
+word-spacing: .8em;
+text-align: center;
+text-shadow: 0 0 18px rgba(255, 40, 150, .18);
 overflow: hidden;
 }
-
-
 body > * { position: relative; z-index: 1; }
