@@ -18,7 +18,7 @@ url("https://www.skunk2.com/media/catalog/product/cache/1/image/1200x/9df78eab33
 
 background-color: #08070b;
 /* Nine independent image tiles, arranged in three columns and three rows. */
-background-size: cover, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%;
+background-size: cover, 33.333vw 33.333vh, 33.333vw 33.333vh, 33.333vw 33.333vh, 33.333vw 33.333vh, 33.333vw 33.333vh, 33.333vw 33.333vh, 33.333vw 33.333vh, 33.333vw 33.333vh, 33.333vw 33.333vh;
 background-position: center, left top, center top, right top, left center, center center, right center, left bottom, center bottom, right bottom;
 background-repeat: no-repeat;
 background-attachment: fixed;
@@ -47,7 +47,7 @@ display: none;
 min-height: 100vh;
 padding: 60px 20px;
 text-align: center;
-background: rgba(0, 0, 0, 0.88);
+background: rgba(0, 0, 0, 0.28);
 }
 
 .planner h2 {
@@ -115,7 +115,7 @@ display: none;
 .planner {
 min-height: 100vh;
 padding: 60px 20px;
-background: rgba(0,0,0,.9);
+background: rgba(0,0,0,.28);
 }
 
 .planner-card {
@@ -368,7 +368,7 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 .build-dashboard {
     margin-top: 32px;
     padding: 28px;
-    background: linear-gradient(145deg, #151b24, #0b0f14);
+    background: linear-gradient(145deg, rgba(21,27,36,.78), rgba(11,15,20,.78));
     border: 1px solid rgba(69, 230, 210, 0.3);
     border-radius: 18px;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
@@ -627,7 +627,7 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
     margin: 28px 0;
     padding: 22px;
     overflow: hidden;
-    background: linear-gradient(145deg, #111a23, #080c11);
+    background: linear-gradient(145deg, rgba(17,26,35,.82), rgba(8,12,17,.82));
     border: 1px solid rgba(69, 230, 210, 0.35);
     border-radius: 18px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
