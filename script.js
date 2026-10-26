@@ -643,3 +643,137 @@ if (garagePhotoInput && garageCarImage) {
     loadGaragePhoto();
 }
 
+/* ===== PERFORMANCE PARTS CATALOG ===== */
+
+const performancePartsCatalog = [
+    { name: "Cold Air Intake", category: "Engine", price: 250, description: "Improve airflow to your engine." },
+    { name: "Turbo Kit", category: "Engine", price: 1800, description: "Add forced induction to your build." },
+    { name: "Intercooler Upgrade", category: "Engine", price: 450, description: "Help cool compressed intake air." },
+    { name: "Performance ECU Tune", category: "Engine", price: 500, description: "Optimize engine performance." },
+    { name: "Upgraded Fuel Injectors", category: "Engine", price: 350, description: "Support increased fueling needs." },
+    { name: "Aluminum Radiator", category: "Engine", price: 300, description: "Upgrade your engine cooling system." },
+
+    { name: "Coilover Kit", category: "Suspension", price: 900, description: "Adjust ride height and handling." },
+    { name: "Lowering Springs", category: "Suspension", price: 300, description: "Lower your car's ride height." },
+    { name: "Adjustable Control Arms", category: "Suspension", price: 400, description: "Fine-tune suspension geometry." },
+    { name: "Sway Bar Kit", category: "Suspension", price: 250, description: "Help reduce body roll." },
+
+    { name: "17-Inch Alloy Wheels", category: "Wheels & Tires", price: 900, description: "Give your build a fresh wheel setup." },
+    { name: "Performance Tire Set", category: "Wheels & Tires", price: 700, description: "Upgrade grip and road handling." },
+    { name: "Wheel Spacers", category: "Wheels & Tires", price: 120, description: "Adjust wheel fitment and stance." },
+
+    { name: "Cat-Back Exhaust", category: "Exhaust", price: 650, description: "Upgrade exhaust flow and sound." },
+    { name: "Performance Header", category: "Exhaust", price: 350, description: "Improve exhaust flow from the engine." },
+    { name: "High-Flow Catalytic Converter", category: "Exhaust", price: 300, description: "A performance-oriented catalytic converter." },
+
+    { name: "Bucket Seat", category: "Interior", price: 450, description: "Add support for spirited driving." },
+    { name: "Aftermarket Steering Wheel", category: "Interior", price: 220, description: "Personalize your driving position." },
+    { name: "Short Shifter", category: "Interior", price: 180, description: "Create a shorter gearshift throw." },
+
+    { name: "Front Lip", category: "Exterior", price: 180, description: "Add a sharper front-end look." },
+    { name: "Rear Spoiler", category: "Exterior", price: 250, description: "Give your car a sportier profile." },
+    { name: "Side Skirts", category: "Exterior", price: 300, description: "Complete the side profile of your build." },
+
+    { name: "LED Headlight Kit", category: "Electrical", price: 160, description: "Upgrade headlight appearance and visibility." },
+    { name: "Performance Ignition Coils", category: "Electrical", price: 180, description: "Refresh or upgrade the ignition system." },
+    { name: "Battery Upgrade", category: "Electrical", price: 220, description: "Replace your battery with a suitable upgrade." }
+];
+
+const catalogSearch = document.getElementById("catalogSearch");
+const catalogCategory = document.getElementById("catalogCategory");
+const catalogResults = document.getElementById("catalogResults");
+
+function renderCatalog() {
+    if (!catalogResults || !catalogSearch || !catalogCategory) return;
+
+    const searchTerm = catalogSearch.value.trim().toLowerCase();
+    const selectedCategory = catalogCategory.value;
+
+    const filteredParts = performancePartsCatalog.filter(part => {
+        const matchesSearch =
+            part.name.toLowerCase().includes(searchTerm) ||
+            part.category.toLowerCase().includes(searchTerm) ||
+            part.description.toLowerCase().includes(searchTerm);
+
+        const matchesCategory =
+            selectedCategory === "All" ||
+            part.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    catalogResults.replaceChildren();
+
+    if (filteredParts.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "No parts found. Try another search.";
+        catalogResults.appendChild(emptyMessage);
+        return;
+    }
+
+    filteredParts.forEach(part => {
+        const card = document.createElement("article");
+        card.className = "catalog-part-card";
+
+        const category = document.createElement("p");
+        category.className = "catalog-part-category";
+        category.textContent = part.category;
+
+        const name = document.createElement("h4");
+        name.textContent = part.name;
+
+        const description = document.createElement("p");
+        description.className = "catalog-part-description";
+        description.textContent = part.description;
+
+        const price = document.createElement("p");
+        price.className = "catalog-part-price";
+        price.textContent = "Est. $" + part.price.toLocaleString("en-US");
+
+        const addButton = document.createElement("button");
+        addButton.type = "button";
+        addButton.className = "catalog-add-button";
+        addButton.textContent = "＋ Add to Build";
+
+        addButton.addEventListener("click", () => {
+            if (typeof currentCar === "undefined" || !currentCar) {
+                alert("Start or load a car build before adding parts.");
+                return;
+            }
+
+            if (!Array.isArray(parts)) {
+                alert("Your parts list is not ready. Please reload the page.");
+                return;
+            }
+
+            parts.push({
+                id: "catalog-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+                name: part.name,
+                price: part.price,
+                category: part.category,
+                stage: "Stage 1",
+                status: "Planned"
+            });
+
+            if (typeof saveCurrentBuild === "function") {
+                saveCurrentBuild();
+            }
+
+            if (typeof renderBuild === "function") {
+                renderBuild();
+            } else {
+                alert("Part added, but the build display could not refresh. Reload the page to check it.");
+            }
+        });
+
+        card.append(category, name, description, price, addButton);
+        catalogResults.appendChild(card);
+    });
+}
+
+if (catalogSearch && catalogCategory && catalogResults) {
+    catalogSearch.addEventListener("input", renderCatalog);
+    catalogCategory.addEventListener("change", renderCatalog);
+    renderCatalog();
+}
+
