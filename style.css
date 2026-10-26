@@ -980,7 +980,7 @@ body::before {
 content: "WORK   •   VOLK RACING   •   BC RACING   •   GARRETT   •   MISHIMOTO   •   MUGEN   •   HKS   •   SKUNK2   •   BREMBO   •   KW SUSPENSIONS   •   TOMEI";
 position: fixed;
 inset: 0;
-z-index: -1;
+z-index: 0;
 pointer-events: none;
 display: block;
 padding: 18px 2vw;
@@ -993,3 +993,6 @@ word-spacing: 1.1em;
 text-shadow: 0 0 16px rgba(255, 30, 160, .12);
 overflow: hidden;
 }
+
+
+body > * { position: relative; z-index: 1; }
