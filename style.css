@@ -4,14 +4,16 @@ body {
 margin: 0;
 font-family: Arial, sans-serif;
 
-background:
-linear-gradient(rgba(10,10,10,.68), rgba(10,10,10,.78)),
-url("https://stat.ameba.jp/user_images/20250209/15/reno64/fc/a3/j/o1080081015542310181.jpg");
+background-image:
+linear-gradient(rgba(8, 5, 10, 0.48), rgba(8, 5, 10, 0.72)),
+url("https://buypartsfromjapan.com/cdn/shop/files/B92CBCEF-CF97-487E-9955-E8D492F35B51_1080x.jpg?v=1736538285"),
+url("https://turbodepotperformance.com/cdn/shop/files/Remove_background_project_8_1350x1351.png?v=1730250076"),
+url("https://jhpusa.com/cdn/shop/files/SpeedFactory-HP-Side-Inlet-Outlet-Universal-Front-Mount-Intercooler-3_-Inlet-3_-Outlet-_850HP-1000HP_-1.jpg?v=1691783839");
 
-background-color: #0a0a0a;
-
-background-size: cover;
-background-position: center;
+background-color: #08070b;
+background-size: cover, 38% auto, 32% auto, 38% auto;
+background-position: center, left center, center center, right center;
+background-repeat: no-repeat;
 background-attachment: fixed;
 
 color: white;
