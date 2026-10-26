@@ -1,4 +1,3 @@
-
 const startButton = document.getElementById("startButton");
 const heroSection = document.getElementById("heroSection");
 const plannerSection = document.getElementById("plannerSection");
@@ -20,7 +19,10 @@ function saveBuilds() {
 function saveCurrentBuild() {
     if (!currentCar) return;
 
-    const index = builds.findIndex(build => build.id === currentBuildId);
+    const index = builds.findIndex(
+        build => build.id === currentBuildId
+    );
+
     const savedBuild = {
         id: currentBuildId,
         car: currentCar,
@@ -34,6 +36,7 @@ function saveCurrentBuild() {
     }
 
     saveBuilds();
+
     localStorage.setItem("myCar", JSON.stringify(currentCar));
     localStorage.setItem("myParts", JSON.stringify(parts));
 }
@@ -45,6 +48,7 @@ function loadBuild(id) {
     currentBuildId = build.id;
     currentCar = build.car;
     parts = build.parts || [];
+
     saveBuilds();
     renderBuild();
 }
@@ -58,20 +62,29 @@ function renderBuildSelector() {
 
         selector = document.createElement("select");
         selector.id = "buildSelector";
-        selector.setAttribute("aria-label", "Switch saved car build");
+        selector.setAttribute(
+            "aria-label",
+            "Switch saved car build"
+        );
+
         label.appendChild(selector);
         buildDashboard.prepend(label);
 
-        selector.addEventListener("change", () => loadBuild(selector.value));
+        selector.addEventListener("change", () => {
+            loadBuild(selector.value);
+        });
     }
 
     selector.innerHTML = "";
 
     builds.forEach(build => {
         const option = document.createElement("option");
+
         option.value = build.id;
-        option.textContent = `${build.car.year} ${build.car.make} ${build.car.model}`;
+        option.textContent =
+            `${build.car.year} ${build.car.make} ${build.car.model}`;
         option.selected = build.id === currentBuildId;
+
         selector.appendChild(option);
     });
 }
@@ -84,53 +97,126 @@ function formatMoney(amount) {
     });
 }
 
-function renderBuild() {
+function updateGarage() {
     if (!currentCar) return;
 
-    const totalSpent = parts.reduce((sum, part) => sum + Number(part.price), 0);
-    const remaining = currentCar.budget - totalSpent;
-    const percentUsed = Math.min(100, Math.max(0, totalSpent / currentCar.budget * 100));
-
-    document.getElementById("carTitle").textContent =
+    const garageName =
         `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
-    
-    const garageName = `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
-    const garageNameElement = document.getElementById("garageCarName");
-    const garageSpecsElement = document.getElementById("garageCarSpecs");
-    const garageVehicleElement = document.getElementById("garageVehicle");
-    const garageModCountElement = document.getElementById("garageModCount");
-    const garageInstalledCountElement = document.getElementById("garageInstalledCount");
 
-    if (garageNameElement) garageNameElement.textContent = garageName;
-    if (garageSpecsElement) garageSpecsElement.textContent =
-        `${parts.length} modifications • ${formatMoney(currentCar.budget)} build budget`;
-    if (garageVehicleElement) garageVehicleElement.textContent =
-        `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
-    if (garageModCountElement) garageModCountElement.textContent = parts.length;
+    const garageNameElement =
+        document.getElementById("garageCarName");
+
+    const garageSpecsElement =
+        document.getElementById("garageCarSpecs");
+
+    const garageVehicleElement =
+        document.getElementById("garageVehicle");
+
+    const garageModCountElement =
+        document.getElementById("garageModCount");
+
+    const garageInstalledCountElement =
+        document.getElementById("garageInstalledCount");
+
+    if (garageNameElement) {
+        garageNameElement.textContent = garageName;
+    }
+
+    if (garageSpecsElement) {
+        garageSpecsElement.textContent =
+            `${parts.length} modifications • ` +
+            `${formatMoney(currentCar.budget)} build budget`;
+    }
+
+    if (garageVehicleElement) {
+        garageVehicleElement.textContent = garageName;
+    }
+
+    if (garageModCountElement) {
+        garageModCountElement.textContent = parts.length;
+    }
+
     if (garageInstalledCountElement) {
         garageInstalledCountElement.textContent =
             parts.filter(part => part.status === "Installed").length;
     }
+}
 
-    document.getElementById("startingBudget").textContent = formatMoney(currentCar.budget);
-    document.getElementById("moneySpent").textContent = formatMoney(totalSpent);
-    document.getElementById("remainingBudget").textContent = formatMoney(remaining);
+function updateBuildProgress() {
+    const planned = parts.filter(
+        part => (part.status || "Planned") === "Planned"
+    ).length;
+
+    const ordered = parts.filter(
+        part => part.status === "Ordered"
+    ).length;
+
+    const installed = parts.filter(
+        part => part.status === "Installed"
+    ).length;
+
+    const plannedElement = document.getElementById("plannedCount");
+    const orderedElement = document.getElementById("orderedCount");
+    const installedElement = document.getElementById("installedCount");
+
+    if (plannedElement) plannedElement.textContent = planned;
+    if (orderedElement) orderedElement.textContent = ordered;
+    if (installedElement) installedElement.textContent = installed;
+}
+
+function renderBuild() {
+    if (!currentCar) return;
+
+    const totalSpent = parts.reduce(
+        (sum, part) => sum + Number(part.price),
+        0
+    );
+
+    const remaining = currentCar.budget - totalSpent;
+
+    const percentUsed = Math.min(
+        100,
+        Math.max(0, totalSpent / currentCar.budget * 100)
+    );
+
+    document.getElementById("carTitle").textContent =
+        `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
+
+    updateGarage();
+
+    document.getElementById("startingBudget").textContent =
+        formatMoney(currentCar.budget);
+
+    document.getElementById("moneySpent").textContent =
+        formatMoney(totalSpent);
+
+    document.getElementById("remainingBudget").textContent =
+        formatMoney(remaining);
 
     let budgetBar = document.getElementById("budgetProgress");
+
     if (!budgetBar) {
         budgetBar = document.createElement("progress");
         budgetBar.id = "budgetProgress";
         budgetBar.max = 100;
-        document.getElementById("remainingBudget").parentElement.after(budgetBar);
+
+        document.getElementById("remainingBudget")
+            .parentElement.after(budgetBar);
     }
+
     budgetBar.value = percentUsed;
-    budgetBar.setAttribute("aria-label", "Percentage of build budget spent");
+    budgetBar.setAttribute(
+        "aria-label",
+        "Percentage of build budget spent"
+    );
 
     renderBuildSelector();
+
     partsList.innerHTML = "";
 
     if (parts.length === 0) {
         partsList.innerHTML = "<li>No parts added yet.</li>";
+        updateBuildProgress();
         return;
     }
 
@@ -141,11 +227,14 @@ function renderBuild() {
 
         const item = document.createElement("li");
         const details = document.createElement("div");
+
         const name = document.createElement("strong");
         name.textContent = part.name;
 
         const info = document.createElement("p");
-        info.textContent = `${part.category} • ${part.stage} • ${part.status}`;
+        info.textContent =
+            `${part.category} • ${part.stage} • ${part.status}`;
+
         details.append(name, info);
 
         const price = document.createElement("span");
@@ -156,9 +245,16 @@ function renderBuild() {
 
         function makeSelect(values, property, label) {
             const select = document.createElement("select");
-            select.setAttribute("aria-label", `${label} for ${part.name}`);
 
-            values.forEach(value => select.add(new Option(value, value)));
+            select.setAttribute(
+                "aria-label",
+                `${label} for ${part.name}`
+            );
+
+            values.forEach(value => {
+                select.add(new Option(value, value));
+            });
+
             select.value = part[property];
 
             select.addEventListener("change", () => {
@@ -171,15 +267,37 @@ function renderBuild() {
         }
 
         controls.append(
-            makeSelect(["Engine", "Suspension", "Wheels & Tires", "Exhaust", "Interior", "Exterior", "Electrical", "Other"], "category", "Category"),
-            makeSelect(["Stage 1", "Stage 2", "Stage 3", "Cosmetic"], "stage", "Build stage"),
-            makeSelect(["Planned", "Ordered", "Installed"], "status", "Status")
+            makeSelect(
+                [
+                    "Engine",
+                    "Suspension",
+                    "Wheels & Tires",
+                    "Exhaust",
+                    "Interior",
+                    "Exterior",
+                    "Electrical",
+                    "Other"
+                ],
+                "category",
+                "Category"
+            ),
+            makeSelect(
+                ["Stage 1", "Stage 2", "Stage 3", "Cosmetic"],
+                "stage",
+                "Build stage"
+            ),
+            makeSelect(
+                ["Planned", "Ordered", "Installed"],
+                "status",
+                "Status"
+            )
         );
 
         const removeButton = document.createElement("button");
         removeButton.type = "button";
         removeButton.className = "remove-part";
         removeButton.textContent = "Remove";
+
         removeButton.addEventListener("click", () => {
             parts = parts.filter(entry => entry.id !== part.id);
             saveCurrentBuild();
@@ -187,9 +305,12 @@ function renderBuild() {
         });
 
         controls.appendChild(removeButton);
+
         item.append(details, price, controls);
         partsList.appendChild(item);
     });
+
+    updateBuildProgress();
 }
 
 startButton.addEventListener("click", () => {
@@ -201,9 +322,17 @@ saveCarButton.addEventListener("click", () => {
     const year = document.getElementById("carYear").value.trim();
     const make = document.getElementById("carMake").value.trim();
     const model = document.getElementById("carModel").value.trim();
-    const budget = Number(document.getElementById("buildBudget").value);
+    const budget = Number(
+        document.getElementById("buildBudget").value
+    );
 
-    if (!year || !make || !model || !Number.isFinite(budget) || budget <= 0) {
+    if (
+        !year ||
+        !make ||
+        !model ||
+        !Number.isFinite(budget) ||
+        budget <= 0
+    ) {
         alert("Please fill out every field with a valid budget.");
         return;
     }
@@ -213,15 +342,20 @@ saveCarButton.addEventListener("click", () => {
     parts = [];
 
     saveCurrentBuild();
+
     buildDashboard.classList.remove("hidden");
     renderBuild();
 
-    alert(`${year} ${make} ${model} saved with a ${formatMoney(budget)} budget.`);
+    alert(
+        `${year} ${make} ${model} saved with a ` +
+        `${formatMoney(budget)} budget.`
+    );
 });
 
 addPartButton.addEventListener("click", () => {
     const nameInput = document.getElementById("partName");
     const priceInput = document.getElementById("partPrice");
+
     const name = nameInput.value.trim();
     const price = Number(priceInput.value);
 
@@ -245,119 +379,136 @@ addPartButton.addEventListener("click", () => {
     });
 
     saveCurrentBuild();
+
     nameInput.value = "";
     priceInput.value = "";
+
     renderBuild();
 });
 
-document.getElementById("compareBuildsButton").addEventListener("click", () => {
-    const panel = document.getElementById("buildComparison");
-    const results = document.getElementById("comparisonResults");
+document.getElementById("compareBuildsButton")
+    .addEventListener("click", () => {
+        const panel = document.getElementById("buildComparison");
+        const results =
+            document.getElementById("comparisonResults");
 
-    panel.classList.remove("hidden");
-    results.innerHTML = "";
+        panel.classList.remove("hidden");
+        results.innerHTML = "";
 
-    if (builds.length < 2) {
-        results.textContent = "Save at least two different car builds to compare them.";
-        return;
-    }
-
-    builds.forEach(build => {
-        const total = build.parts.reduce((sum, part) => sum + Number(part.price), 0);
-        const card = document.createElement("div");
-        card.className = "comparison-item";
-
-        const title = document.createElement("h4");
-        title.textContent = `${build.car.year} ${build.car.make} ${build.car.model}`;
-
-        const budget = document.createElement("p");
-        budget.textContent = `Budget: ${formatMoney(build.car.budget)}`;
-
-        const spent = document.createElement("p");
-        spent.textContent = `Parts total: ${formatMoney(total)}`;
-
-        const left = document.createElement("p");
-        left.textContent = `Remaining: ${formatMoney(build.car.budget - total)}`;
-
-        card.append(title, budget, spent, left);
-        results.appendChild(card);
-    });
-});
-
-document.getElementById("exportBuildButton").addEventListener("click", () => {
-    if (!currentCar) {
-        alert("Save a car build before exporting.");
-        return;
-    }
-
-    const total = parts.reduce((sum, part) => sum + Number(part.price), 0);
-    const lines = [
-        "CAR BUILD PLANNER",
-        `${currentCar.year} ${currentCar.make} ${currentCar.model}`,
-        `Budget: ${formatMoney(currentCar.budget)}`,
-        `Parts total: ${formatMoney(total)}`,
-        `Remaining: ${formatMoney(currentCar.budget - total)}`,
-        "",
-        "PARTS LIST",
-        ...parts.map(part =>
-            `${part.name} | ${formatMoney(part.price)} | ${part.category || "Other"} | ${part.stage || "Stage 1"} | ${part.status || "Planned"}`
-        )
-    ];
-
-    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${currentCar.year}-${currentCar.make}-${currentCar.model}-build.txt`;
-    link.click();
-    URL.revokeObjectURL(url);
-});
-
-function restoreBuilds() {
-    
-const garagePhotoInput = document.getElementById("garagePhotoInput");
-const garageCarImage = document.getElementById("garageCarImage");
-
-if (garagePhotoInput && garageCarImage) {
-    garagePhotoInput.addEventListener("change", () => {
-        const file = garagePhotoInput.files[0];
-
-        if (!file) return;
-
-        if (!file.type.startsWith("image/")) {
-            alert("Please choose an image file.");
-            garagePhotoInput.value = "";
+        if (builds.length < 2) {
+            results.textContent =
+                "Save at least two different car builds to compare them.";
             return;
         }
 
-        const reader = new FileReader();
+        builds.forEach(build => {
+            const total = (build.parts || []).reduce(
+                (sum, part) => sum + Number(part.price),
+                0
+            );
 
-        reader.onload = () => {
-            garageCarImage.src = reader.result;
-        };
+            const card = document.createElement("div");
+            card.className = "comparison-item";
 
-        reader.readAsDataURL(file);
+            const title = document.createElement("h4");
+            title.textContent =
+                `${build.car.year} ${build.car.make} ${build.car.model}`;
+
+            const budget = document.createElement("p");
+            budget.textContent =
+                `Budget: ${formatMoney(build.car.budget)}`;
+
+            const spent = document.createElement("p");
+            spent.textContent = `Parts total: ${formatMoney(total)}`;
+
+            const left = document.createElement("p");
+            left.textContent =
+                `Remaining: ${formatMoney(build.car.budget - total)}`;
+
+            card.append(title, budget, spent, left);
+            results.appendChild(card);
+        });
     });
-}
 
+document.getElementById("exportBuildButton")
+    .addEventListener("click", () => {
+        if (!currentCar) {
+            alert("Save a car build before exporting.");
+            return;
+        }
+
+        const total = parts.reduce(
+            (sum, part) => sum + Number(part.price),
+            0
+        );
+
+        const lines = [
+            "CAR BUILD PLANNER",
+            `${currentCar.year} ${currentCar.make} ${currentCar.model}`,
+            `Budget: ${formatMoney(currentCar.budget)}`,
+            `Parts total: ${formatMoney(total)}`,
+            `Remaining: ${formatMoney(currentCar.budget - total)}`,
+            "",
+            "PARTS LIST",
+            ...parts.map(part =>
+                `${part.name} | ${formatMoney(part.price)} | ` +
+                `${part.category || "Other"} | ` +
+                `${part.stage || "Stage 1"} | ` +
+                `${part.status || "Planned"}`
+            )
+        ];
+
+        const blob = new Blob(
+            [lines.join("\n")],
+            { type: "text/plain;charset=utf-8" }
+        );
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download =
+            `${currentCar.year}-${currentCar.make}-` +
+            `${currentCar.model}-build.txt`;
+
+        link.click();
+        URL.revokeObjectURL(url);
+    });
+
+function restoreBuilds() {
     if (builds.length === 0) {
-        const oldCar = JSON.parse(localStorage.getItem("myCar") || "null");
-        const oldParts = JSON.parse(localStorage.getItem("myParts") || "[]");
+        const oldCar = JSON.parse(
+            localStorage.getItem("myCar") || "null"
+        );
+
+        const oldParts = JSON.parse(
+            localStorage.getItem("myParts") || "[]"
+        );
 
         if (oldCar) {
             currentBuildId = String(Date.now());
             currentCar = oldCar;
+
             parts = oldParts.map(part => ({
                 ...part,
                 category: part.category || "Other",
                 stage: part.stage || "Stage 1",
                 status: part.status || "Planned"
             }));
-            builds.push({ id: currentBuildId, car: currentCar, parts });
+
+            builds.push({
+                id: currentBuildId,
+                car: currentCar,
+                parts
+            });
+
             saveCurrentBuild();
         }
     } else {
-        const savedBuild = builds.find(build => build.id === currentBuildId) || builds[0];
+        const savedBuild =
+            builds.find(build => build.id === currentBuildId) ||
+            builds[0];
+
         currentBuildId = savedBuild.id;
         currentCar = savedBuild.car;
         parts = savedBuild.parts || [];
@@ -371,19 +522,42 @@ if (garagePhotoInput && garageCarImage) {
 
 restoreBuilds();
 
-function updateBuildProgress() {
-    const planned = parts.filter(part => (part.status || "Planned") === "Planned").length;
-    const ordered = parts.filter(part => part.status === "Ordered").length;
-    const installed = parts.filter(part => part.status === "Installed").length;
+// ===== VIRTUAL GARAGE PHOTO UPLOAD =====
+const garagePhotoInput =
+    document.getElementById("garagePhotoInput");
 
-    document.getElementById("plannedCount").textContent = planned;
-    document.getElementById("orderedCount").textContent = ordered;
-    document.getElementById("installedCount").textContent = installed;
+const garageCarImage =
+    document.getElementById("garageCarImage");
+
+if (garagePhotoInput && garageCarImage) {
+    garagePhotoInput.addEventListener("change", () => {
+        const file =
+            garagePhotoInput.files &&
+            garagePhotoInput.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("Please choose an image file.");
+            garagePhotoInput.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            if (typeof reader.result === "string") {
+                garageCarImage.src = reader.result;
+                garageCarImage.alt = "Your uploaded car photo";
+            }
+        };
+
+        reader.onerror = () => {
+            alert(
+                "That photo couldn't be opened. Please try another image."
+            );
+        };
+
+        reader.readAsDataURL(file);
+    });
 }
-
-const originalRenderBuild = renderBuild;
-
-renderBuild = function () {
-    originalRenderBuild();
-    updateBuildProgress();
-};
