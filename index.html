@@ -150,6 +150,45 @@
             <strong id="remainingBudget">$0</strong>
         </p>
 
+<!-- PERFORMANCE PARTS CATALOG -->
+<div class="catalog-card" id="partsCatalog">
+
+    <div class="catalog-heading">
+        <p class="catalog-label">THE MOD SHOP</p>
+        <h3>Performance Parts Catalog</h3>
+        <p>Find your next upgrade and add it to your build.</p>
+    </div>
+
+    <label for="catalogSearch">Search parts</label>
+    <input
+        type="search"
+        id="catalogSearch"
+        placeholder="Try coilovers, turbo, wheels..."
+    >
+
+    <label for="catalogCategory">Filter by category</label>
+    <select id="catalogCategory">
+        <option value="All">All Categories</option>
+        <option value="Engine">Engine</option>
+        <option value="Suspension">Suspension</option>
+        <option value="Wheels & Tires">Wheels & Tires</option>
+        <option value="Exhaust">Exhaust</option>
+        <option value="Interior">Interior</option>
+        <option value="Exterior">Exterior</option>
+        <option value="Electrical">Electrical</option>
+    </select>
+
+    <div id="catalogResults" class="catalog-results">
+        <p>Loading performance parts...</p>
+    </div>
+
+    <p class="catalog-disclaimer">
+        Prices are estimates for planning purposes, not live retailer prices.
+        Check fitment and compatibility before purchasing parts.
+    </p>
+
+</div>
+
         <div class="parts-card">
 
             <h3>Add a Part</h3>
