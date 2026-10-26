@@ -5,15 +5,16 @@ margin: 0;
 font-family: Arial, sans-serif;
 
 background-image:
-linear-gradient(rgba(8, 4, 12, 0.38), rgba(8, 4, 12, 0.60)),
+linear-gradient(rgba(8, 4, 12, 0.36), rgba(8, 4, 12, 0.60)),
+url("https://shop.redline360.com/cdn/shop/products/mss0450_1.jpg?v=1541021731"),
 url("https://www.workwheelsusa.com/wp-content/uploads/2025/01/KF_500.jpg"),
 url("https://buypartsfromjapan.com/cdn/shop/files/B92CBCEF-CF97-487E-9955-E8D492F35B51_1080x.jpg?v=1736538285"),
 url("https://turbodepotperformance.com/cdn/shop/files/Remove_background_project_8_1350x1351.png?v=1730250076"),
 url("https://jhpusa.com/cdn/shop/files/SpeedFactory-HP-Side-Inlet-Outlet-Universal-Front-Mount-Intercooler-3_-Inlet-3_-Outlet-_850HP-1000HP_-1.jpg?v=1691783839");
 
 background-color: #08070b;
-background-size: cover, 54% auto, 50% auto, 43% auto, 52% auto;
-background-position: center, center 20%, left -4% center, center center, right -4% center;
+background-size: cover, 31% auto, 42% auto, 43% auto, 37% auto, 44% auto;
+background-position: center, right 5% center, center 15%, left -5% center, center center, right -3% center;
 background-repeat: no-repeat;
 background-attachment: fixed;
 
@@ -977,21 +978,47 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 
 
 
-/* Repeating low-contrast motorsport marque wall behind the photo collage. */
+/* Subtle motorsport marque backdrop. Real product photos remain the focal point. */
 body::before {
-content: "WORK WHEELS   •   VOLK RACING / RAYS   •   GODSPEED   •   GARRETT   •   MISHIMOTO   •   MUGEN   •   HKS   •   SKUNK2   •   BREMBO   •   KW SUSPENSIONS   •   TOMEI";
+content: "WORK WHEELS  •  VOLK RACING / RAYS  •  GODSPEED  •  GARRETT  •  MISHIMOTO  •  MUGEN  •  HKS  •  SKUNK2  •  BREMBO  •  KW SUSPENSIONS  •  TOMEI";
 position: fixed;
 inset: 0;
 z-index: 0;
 pointer-events: none;
 box-sizing: border-box;
-padding: 22px 2vw;
-color: rgba(255, 92, 174, .22);
-font: 700 clamp(11px, 1.35vw, 20px)/2.6 'Orbitron', Arial, sans-serif;
-letter-spacing: .12em;
-word-spacing: .8em;
+padding: 20px 2vw;
+color: rgba(255, 92, 174, .16);
+font: 700 clamp(11px, 1.25vw, 18px)/2.8 'Orbitron', Arial, sans-serif;
+letter-spacing: .1em;
+word-spacing: .6em;
 text-align: center;
-text-shadow: 0 0 18px rgba(255, 40, 150, .18);
+text-shadow: 0 0 16px rgba(255, 40, 150, .15);
 overflow: hidden;
 }
 body > * { position: relative; z-index: 1; }
+
+/* High-contrast retailer links: readable white text on near-black cards. */
+.catalog-retailer-dropdown {
+    background: #09080c !important;
+    border: 1px solid #ff4f91 !important;
+}
+.catalog-retailer-dropdown summary {
+    color: #ffffff !important;
+    background: #171019 !important;
+    font-size: .9rem !important;
+    text-shadow: 0 1px 2px #000;
+}
+.catalog-retailer-link {
+    color: #ffffff !important;
+    background: #151219 !important;
+    border: 1px solid #ff70aa !important;
+    font-size: .82rem !important;
+    font-weight: 800 !important;
+    text-shadow: 0 1px 2px #000;
+}
+.catalog-retailer-link:hover,
+.catalog-retailer-link:focus-visible {
+    color: #ffffff !important;
+    background: #a51f58 !important;
+    border-color: #ffffff !important;
+}
