@@ -93,6 +93,25 @@ function renderBuild() {
 
     document.getElementById("carTitle").textContent =
         `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
+    
+    const garageName = `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
+    const garageNameElement = document.getElementById("garageCarName");
+    const garageSpecsElement = document.getElementById("garageCarSpecs");
+    const garageVehicleElement = document.getElementById("garageVehicle");
+    const garageModCountElement = document.getElementById("garageModCount");
+    const garageInstalledCountElement = document.getElementById("garageInstalledCount");
+
+    if (garageNameElement) garageNameElement.textContent = garageName;
+    if (garageSpecsElement) garageSpecsElement.textContent =
+        `${parts.length} modifications • ${formatMoney(currentCar.budget)} build budget`;
+    if (garageVehicleElement) garageVehicleElement.textContent =
+        `${currentCar.year} ${currentCar.make} ${currentCar.model}`;
+    if (garageModCountElement) garageModCountElement.textContent = parts.length;
+    if (garageInstalledCountElement) {
+        garageInstalledCountElement.textContent =
+            parts.filter(part => part.status === "Installed").length;
+    }
+
     document.getElementById("startingBudget").textContent = formatMoney(currentCar.budget);
     document.getElementById("moneySpent").textContent = formatMoney(totalSpent);
     document.getElementById("remainingBudget").textContent = formatMoney(remaining);
