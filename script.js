@@ -314,6 +314,32 @@ document.getElementById("exportBuildButton").addEventListener("click", () => {
 });
 
 function restoreBuilds() {
+    
+const garagePhotoInput = document.getElementById("garagePhotoInput");
+const garageCarImage = document.getElementById("garageCarImage");
+
+if (garagePhotoInput && garageCarImage) {
+    garagePhotoInput.addEventListener("change", () => {
+        const file = garagePhotoInput.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("Please choose an image file.");
+            garagePhotoInput.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            garageCarImage.src = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
     if (builds.length === 0) {
         const oldCar = JSON.parse(localStorage.getItem("myCar") || "null");
         const oldParts = JSON.parse(localStorage.getItem("myParts") || "[]");
