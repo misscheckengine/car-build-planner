@@ -766,6 +766,13 @@ function renderCatalog() {
             }
         });
 
+        const retailerDropdown = document.createElement("details");
+        retailerDropdown.className = "catalog-retailer-dropdown";
+
+        const retailerSummary = document.createElement("summary");
+        retailerSummary.textContent = "Find this part online";
+        retailerDropdown.appendChild(retailerSummary);
+
         const retailerLinks = document.createElement("div");
         retailerLinks.className = "catalog-retailer-links";
         retailerLinks.setAttribute("aria-label", "Search this part at retailers");
@@ -788,7 +795,9 @@ function renderCatalog() {
             retailerLinks.appendChild(link);
         });
 
-        card.append(category, name, description, price, retailerLinks, addButton);
+        retailerDropdown.appendChild(retailerLinks);
+
+        card.append(category, name, description, price, retailerDropdown, addButton);
         catalogResults.appendChild(card);
     });
 }
