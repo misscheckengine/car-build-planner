@@ -159,14 +159,7 @@
         <p>Find your next upgrade and add it to your build.</p>
     </div>
 
-    <label for="catalogSearch">Search parts</label>
-    <input
-        type="search"
-        id="catalogSearch"
-        placeholder="Try coilovers, turbo, wheels..."
-    >
-
-    <label for="catalogCategory">Filter by category</label>
+    <label for="catalogCategory">Choose a category</label>
     <select id="catalogCategory">
         <option value="All">All Categories</option>
         <option value="Engine">Engine</option>
@@ -178,8 +171,20 @@
         <option value="Electrical">Electrical</option>
     </select>
 
-    <div id="catalogResults" class="catalog-results">
-        <p>Loading performance parts...</p>
+    <label for="catalogSearch">Search parts (optional)</label>
+    <input
+        type="search"
+        id="catalogSearch"
+        placeholder="Search within the selected category..."
+    >
+
+    <label for="catalogPartSelect">Choose a part</label>
+    <select id="catalogPartSelect">
+        <option value="">Loading parts...</option>
+    </select>
+
+    <div id="catalogSelectedPart" class="catalog-selected-part" aria-live="polite">
+        <p>Choose a category and part to see details.</p>
     </div>
 
     <p class="catalog-disclaimer">
