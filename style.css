@@ -923,7 +923,7 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 
 .catalog-retailer-dropdown summary {
     padding: 10px 12px;
-    color: #ff79ad;
+    color: #ffd6e5;
     font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
@@ -948,9 +948,9 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 .catalog-retailer-link {
     display: inline-block;
     padding: 7px 9px;
-    color: #ff79ad;
-    background: #21151e;
-    border: 1px solid #633047;
+    color: #ffffff;
+    background: #57203a;
+    border: 1px solid #ff79ad;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 700;
@@ -960,7 +960,7 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 
 .catalog-retailer-link:hover {
     color: #ffffff;
-    background: #4a1c32;
+    background: #76264a;
     border-color: #ff4f91;
 }
 
