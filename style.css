@@ -921,3 +921,37 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
   
 
 
+
+
+/* ===== RETAILER SHOPPING LINKS ===== */
+
+.catalog-retailer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 18px;
+}
+
+.catalog-retailer-link {
+    display: inline-block;
+    padding: 7px 9px;
+    color: #ff79ad;
+    background: #21151e;
+    border: 1px solid #633047;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.catalog-retailer-link:hover {
+    color: #ffffff;
+    background: #4a1c32;
+    border-color: #ff4f91;
+}
+
+.catalog-retailer-link:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+}
