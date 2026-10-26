@@ -5,17 +5,21 @@ margin: 0;
 font-family: Arial, sans-serif;
 
 background-image:
-linear-gradient(rgba(8, 4, 12, 0.34), rgba(8, 4, 12, 0.48)),
+linear-gradient(rgba(8, 4, 12, 0.34), rgba(8, 4, 12, 0.50)),
 url("https://shop.redline360.com/cdn/shop/products/mss0450_1.jpg?v=1541021731"),
 url("https://www.workwheelsusa.com/wp-content/uploads/2025/01/KF_500.jpg"),
 url("https://buypartsfromjapan.com/cdn/shop/files/B92CBCEF-CF97-487E-9955-E8D492F35B51_1080x.jpg?v=1736538285"),
 url("https://turbodepotperformance.com/cdn/shop/files/Remove_background_project_8_1350x1351.png?v=1730250076"),
-url("https://jhpusa.com/cdn/shop/files/SpeedFactory-HP-Side-Inlet-Outlet-Universal-Front-Mount-Intercooler-3_-Inlet-3_-Outlet-_850HP-1000HP_-1.jpg?v=1691783839");
+url("https://jhpusa.com/cdn/shop/files/SpeedFactory-HP-Side-Inlet-Outlet-Universal-Front-Mount-Intercooler-3_-Inlet-3_-Outlet-_850HP-1000HP_-1.jpg?v=1691783839"),
+url("https://www.mishimoto.com/media/catalog/product/cache/8e6f7d9a2f3c7c0e6d9c6e0d3f8b4f2b/m/m/mmint-15wrx-08bk_1.jpg"),
+url("https://www.godspeedproject.com/cdn/shop/products/coilover_kit_1024x1024.jpg"),
+url("https://www.garrettmotion.com/wp-content/uploads/2020/04/G-Series-Turbo-1.png"),
+url("https://www.skunk2.com/media/catalog/product/cache/1/image/1200x/9df78eab33525d08d6e5fb8d27136e95/5/5/555-05-0020_1.jpg");
 
 background-color: #08070b;
-/* Six fixed tiles create a true collage: each image gets its own cell, no photo overlap. */
-background-size: cover, 33.34% 50%, 33.34% 50%, 33.34% 50%, 33.34% 50%, 33.34% 50%;
-background-position: center, left top, center top, right top, left bottom, center bottom;
+/* Nine independent image tiles, arranged in three columns and three rows. */
+background-size: cover, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%, 33.34% 33.34%;
+background-position: center, left top, center top, right top, left center, center center, right center, left bottom, center bottom, right bottom;
 background-repeat: no-repeat;
 background-attachment: fixed;
 
