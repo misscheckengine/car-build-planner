@@ -51,7 +51,28 @@
     <div class="build-dashboard hidden" id="buildDashboard">
 
         <h2 id="carTitle">My Build</h2>
+    
         <div class="dashboard-actions">
+            <div class="progress-overview">
+    <h3>Build Progress</h3>
+
+    <div class="progress-cards">
+        <div class="progress-card">
+            <span class="progress-number" id="plannedCount">0</span>
+            <span>Planned</span>
+        </div>
+
+        <div class="progress-card">
+            <span class="progress-number" id="orderedCount">0</span>
+            <span>Ordered</span>
+        </div>
+
+        <div class="progress-card">
+            <span class="progress-number" id="installedCount">0</span>
+            <span>Installed</span>
+        </div>
+    </div>
+</div>
             <button id="compareBuildsButton" type="button">
                 Compare Builds
             </button>
