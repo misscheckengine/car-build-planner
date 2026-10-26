@@ -542,4 +542,72 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 }
 
 
+/* ===== BUILD PROGRESS OVERVIEW ===== */
+
+.progress-overview {
+    margin: 24px 0;
+    padding: 22px;
+    background: linear-gradient(145deg, #151e28, #0b0f14);
+    border: 1px solid rgba(69, 230, 210, 0.3);
+    border-radius: 16px;
+}
+
+.progress-overview h3 {
+    margin: 0 0 18px;
+    color: #45e6d2;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.progress-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.progress-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 100px;
+    padding: 16px 10px;
+    background: #101720;
+    border: 1px solid #273542;
+    border-radius: 12px;
+    color: #aebdca;
+    text-align: center;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.progress-card:hover {
+    border-color: #45e6d2;
+    transform: translateY(-3px);
+}
+
+.progress-number {
+    color: #45e6d2;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: 0 0 14px rgba(69, 230, 210, 0.2);
+}
+
+@media (max-width: 480px) {
+    .progress-cards {
+        gap: 8px;
+    }
+
+    .progress-card {
+        min-height: 85px;
+        padding: 12px 5px;
+        font-size: 0.85rem;
+    }
+
+    .progress-number {
+        font-size: 1.6rem;
+    }
+}
+
 
