@@ -325,3 +325,20 @@ function restoreBuilds() {
 }
 
 restoreBuilds();
+
+function updateBuildProgress() {
+    const planned = parts.filter(part => (part.status || "Planned") === "Planned").length;
+    const ordered = parts.filter(part => part.status === "Ordered").length;
+    const installed = parts.filter(part => part.status === "Installed").length;
+
+    document.getElementById("plannedCount").textContent = planned;
+    document.getElementById("orderedCount").textContent = ordered;
+    document.getElementById("installedCount").textContent = installed;
+}
+
+const originalRenderBuild = renderBuild;
+
+renderBuild = function () {
+    originalRenderBuild();
+    updateBuildProgress();
+};
