@@ -766,7 +766,29 @@ function renderCatalog() {
             }
         });
 
-        card.append(category, name, description, price, addButton);
+        const retailerLinks = document.createElement("div");
+        retailerLinks.className = "catalog-retailer-links";
+        retailerLinks.setAttribute("aria-label", "Search this part at retailers");
+
+        const retailers = [
+            { name: "Summit Racing", domain: "summitracing.com" },
+            { name: "JEGS", domain: "jegs.com" },
+            { name: "RockAuto", domain: "rockauto.com" }
+        ];
+
+        retailers.forEach(retailer => {
+            const link = document.createElement("a");
+            const searchQuery = "site:" + retailer.domain + " " + part.name + " automotive";
+            link.textContent = retailer.name + " ↗";
+            link.href = "https://www.google.com/search?q=" + encodeURIComponent(searchQuery);
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.className = "catalog-retailer-link";
+            link.setAttribute("aria-label", "Search " + part.name + " at " + retailer.name);
+            retailerLinks.appendChild(link);
+        });
+
+        card.append(category, name, description, price, retailerLinks, addButton);
         catalogResults.appendChild(card);
     });
 }
