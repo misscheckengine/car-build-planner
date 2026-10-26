@@ -979,7 +979,7 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 
 /* Repeating low-contrast motorsport marque wall behind the photo collage. */
 body::before {
-content: "WORK WHEELS   •   VOLK RACING / RAYS   •   BC RACING   •   GARRETT   •   MISHIMOTO   •   MUGEN   •   HKS   •   SKUNK2   •   BREMBO   •   KW SUSPENSIONS   •   TOMEI";
+content: "WORK WHEELS   •   VOLK RACING / RAYS   •   GODSPEED   •   GARRETT   •   MISHIMOTO   •   MUGEN   •   HKS   •   SKUNK2   •   BREMBO   •   KW SUSPENSIONS   •   TOMEI";
 position: fixed;
 inset: 0;
 z-index: 0;
