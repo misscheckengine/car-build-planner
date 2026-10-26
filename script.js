@@ -681,13 +681,15 @@ const performancePartsCatalog = [
 
 const catalogSearch = document.getElementById("catalogSearch");
 const catalogCategory = document.getElementById("catalogCategory");
-const catalogResults = document.getElementById("catalogResults");
+const catalogPartSelect = document.getElementById("catalogPartSelect");
+const catalogSelectedPart = document.getElementById("catalogSelectedPart");
 
 function renderCatalog() {
-    if (!catalogResults || !catalogSearch || !catalogCategory) return;
+    if (!catalogPartSelect || !catalogSelectedPart || !catalogCategory || !catalogSearch) return;
 
     const searchTerm = catalogSearch.value.trim().toLowerCase();
     const selectedCategory = catalogCategory.value;
+    const previousPart = catalogPartSelect.value;
 
     const filteredParts = performancePartsCatalog.filter(part => {
         const matchesSearch =
@@ -696,115 +698,122 @@ function renderCatalog() {
             part.description.toLowerCase().includes(searchTerm);
 
         const matchesCategory =
-            selectedCategory === "All" ||
-            part.category === selectedCategory;
+            selectedCategory === "All" || part.category === selectedCategory;
 
         return matchesSearch && matchesCategory;
     });
 
-    catalogResults.replaceChildren();
-
-    if (filteredParts.length === 0) {
-        const emptyMessage = document.createElement("p");
-        emptyMessage.textContent = "No parts found. Try another search.";
-        catalogResults.appendChild(emptyMessage);
-        return;
-    }
+    catalogPartSelect.replaceChildren();
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = filteredParts.length
+        ? "Choose a part..."
+        : "No matching parts";
+    catalogPartSelect.appendChild(placeholder);
 
     filteredParts.forEach(part => {
-        const card = document.createElement("article");
-        card.className = "catalog-part-card";
-
-        const category = document.createElement("p");
-        category.className = "catalog-part-category";
-        category.textContent = part.category;
-
-        const name = document.createElement("h4");
-        name.textContent = part.name;
-
-        const description = document.createElement("p");
-        description.className = "catalog-part-description";
-        description.textContent = part.description;
-
-        const price = document.createElement("p");
-        price.className = "catalog-part-price";
-        price.textContent = "Est. $" + part.price.toLocaleString("en-US");
-
-        const addButton = document.createElement("button");
-        addButton.type = "button";
-        addButton.className = "catalog-add-button";
-        addButton.textContent = "＋ Add to Build";
-
-        addButton.addEventListener("click", () => {
-            if (typeof currentCar === "undefined" || !currentCar) {
-                alert("Start or load a car build before adding parts.");
-                return;
-            }
-
-            if (!Array.isArray(parts)) {
-                alert("Your parts list is not ready. Please reload the page.");
-                return;
-            }
-
-            parts.push({
-                id: "catalog-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
-                name: part.name,
-                price: part.price,
-                category: part.category,
-                stage: "Stage 1",
-                status: "Planned"
-            });
-
-            if (typeof saveCurrentBuild === "function") {
-                saveCurrentBuild();
-            }
-
-            if (typeof renderBuild === "function") {
-                renderBuild();
-            } else {
-                alert("Part added, but the build display could not refresh. Reload the page to check it.");
-            }
-        });
-
-        const retailerDropdown = document.createElement("details");
-        retailerDropdown.className = "catalog-retailer-dropdown";
-
-        const retailerSummary = document.createElement("summary");
-        retailerSummary.textContent = "Find this part online";
-        retailerDropdown.appendChild(retailerSummary);
-
-        const retailerLinks = document.createElement("div");
-        retailerLinks.className = "catalog-retailer-links";
-        retailerLinks.setAttribute("aria-label", "Search this part at retailers");
-
-        const retailers = [
-            { name: "Summit Racing", domain: "summitracing.com" },
-            { name: "JEGS", domain: "jegs.com" },
-            { name: "RockAuto", domain: "rockauto.com" }
-        ];
-
-        retailers.forEach(retailer => {
-            const link = document.createElement("a");
-            const searchQuery = "site:" + retailer.domain + " " + part.name + " automotive";
-            link.textContent = retailer.name + " ↗";
-            link.href = "https://www.google.com/search?q=" + encodeURIComponent(searchQuery);
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            link.className = "catalog-retailer-link";
-            link.setAttribute("aria-label", "Search " + part.name + " at " + retailer.name);
-            retailerLinks.appendChild(link);
-        });
-
-        retailerDropdown.appendChild(retailerLinks);
-
-        card.append(category, name, description, price, retailerDropdown, addButton);
-        catalogResults.appendChild(card);
+        const option = document.createElement("option");
+        option.value = part.name;
+        option.textContent = part.name + " • Est. $" + part.price.toLocaleString("en-US");
+        catalogPartSelect.appendChild(option);
     });
+
+    const partToSelect = filteredParts.find(part => part.name === previousPart) || filteredParts[0];
+    if (partToSelect) {
+        catalogPartSelect.value = partToSelect.name;
+        showCatalogPart(partToSelect);
+    } else {
+        catalogSelectedPart.replaceChildren();
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "No parts match. Try another search or category.";
+        catalogSelectedPart.appendChild(emptyMessage);
+    }
 }
 
-if (catalogSearch && catalogCategory && catalogResults) {
+function showCatalogPart(part) {
+    if (!part || !catalogSelectedPart) return;
+    catalogSelectedPart.replaceChildren();
+
+    const category = document.createElement("p");
+    category.className = "catalog-part-category";
+    category.textContent = part.category;
+
+    const name = document.createElement("h4");
+    name.className = "catalog-part-name";
+    name.textContent = part.name;
+
+    const description = document.createElement("p");
+    description.className = "catalog-part-description";
+    description.textContent = part.description;
+
+    const price = document.createElement("p");
+    price.className = "catalog-part-price";
+    price.textContent = "Estimated price: $" + part.price.toLocaleString("en-US");
+
+    const retailerDropdown = document.createElement("details");
+    retailerDropdown.className = "catalog-retailer-dropdown";
+    const retailerSummary = document.createElement("summary");
+    retailerSummary.textContent = "Find this part online";
+    retailerDropdown.appendChild(retailerSummary);
+
+    const retailerLinks = document.createElement("div");
+    retailerLinks.className = "catalog-retailer-links";
+    retailerLinks.setAttribute("aria-label", "Search this part at retailers");
+
+    [
+        { name: "Summit Racing", domain: "summitracing.com" },
+        { name: "JEGS", domain: "jegs.com" },
+        { name: "RockAuto", domain: "rockauto.com" }
+    ].forEach(retailer => {
+        const link = document.createElement("a");
+        const query = "site:" + retailer.domain + " " + part.name + " automotive";
+        link.textContent = retailer.name + " ↗";
+        link.href = "https://www.google.com/search?q=" + encodeURIComponent(query);
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.className = "catalog-retailer-link";
+        link.setAttribute("aria-label", "Search " + part.name + " at " + retailer.name);
+        retailerLinks.appendChild(link);
+    });
+
+    retailerDropdown.appendChild(retailerLinks);
+
+    const addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.className = "catalog-add-button";
+    addButton.textContent = "＋ Add to Build";
+    addButton.addEventListener("click", () => {
+        if (!currentCar) {
+            alert("Start or load a car build before adding parts.");
+            return;
+        }
+
+        parts.push({
+            id: "catalog-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+            name: part.name,
+            price: part.price,
+            category: part.category,
+            stage: "Stage 1",
+            status: "Planned"
+        });
+
+        saveCurrentBuild();
+        renderBuild();
+        addButton.textContent = "✓ Added to Build";
+        window.setTimeout(() => {
+            if (addButton.isConnected) addButton.textContent = "＋ Add to Build";
+        }, 1200);
+    });
+
+    catalogSelectedPart.append(category, name, description, price, retailerDropdown, addButton);
+}
+
+if (catalogSearch && catalogCategory && catalogPartSelect && catalogSelectedPart) {
     catalogSearch.addEventListener("input", renderCatalog);
     catalogCategory.addEventListener("change", renderCatalog);
+    catalogPartSelect.addEventListener("change", () => {
+        const selectedPart = performancePartsCatalog.find(part => part.name === catalogPartSelect.value);
+        if (selectedPart) showCatalogPart(selectedPart);
+    });
     renderCatalog();
 }
-
