@@ -925,11 +925,36 @@ text-shadow: 0 0 7px rgba(69, 230, 210, 0.55);
 
 /* ===== RETAILER SHOPPING LINKS ===== */
 
+.catalog-retailer-dropdown {
+    width: 100%;
+    margin: 0 0 16px;
+    border: 1px solid #49303e;
+    border-radius: 8px;
+    background: #151117;
+}
+
+.catalog-retailer-dropdown summary {
+    padding: 10px 12px;
+    color: #ff79ad;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    list-style-position: inside;
+}
+
+.catalog-retailer-dropdown summary:hover {
+    color: #ffffff;
+}
+
+.catalog-retailer-dropdown[open] summary {
+    border-bottom: 1px solid #49303e;
+}
+
 .catalog-retailer-links {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 0 0 18px;
+    padding: 12px;
 }
 
 .catalog-retailer-link {
